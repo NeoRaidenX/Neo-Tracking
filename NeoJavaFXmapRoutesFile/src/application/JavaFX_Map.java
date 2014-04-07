@@ -26,6 +26,7 @@ public class JavaFX_Map extends Application {
 		
 		try {
 			scene = new Scene(myBrowser,640,480);
+			//css autogenerado por el proyecto JavaFX editable
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -46,6 +47,7 @@ public class JavaFX_Map extends Application {
 		WebEngine webEngine = webView.getEngine();
 		
 		public MyBrowser(){
+			//Obtiene ruta del archivo que traza las coordenadas dentro del mapa
 			String desktopPath = desktopPath();
 			File f = new File(desktopPath);
 			try {
@@ -62,6 +64,7 @@ public class JavaFX_Map extends Application {
 		public String desktopPath(){
 			String desktopPath = "";
 			try{
+				//user.home obtiene la ruta del usuario en turno
 				desktopPath = System.getProperty("user.home") + "/Desktop/googlemaps.html";
 				desktopPath = desktopPath.replace("\\", "/");
 				System.out.println(desktopPath);
