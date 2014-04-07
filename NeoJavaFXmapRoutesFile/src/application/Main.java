@@ -37,14 +37,14 @@ public class Main extends Application {
             public void handle(ActionEvent arg0) {
                 FileChooser fileChooser = new FileChooser();
                  
-                //Set extension filter
+                //Filechooser con filtro para archivos con solo archivos txt
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
                 fileChooser.getExtensionFilters().add(extFilter);
                  
-                //Show save file dialog
                 File file = fileChooser.showOpenDialog(primaryStage);
                 if(file != null){
                     coor = readFile(file);
+                    //se lee el archivo Template para editarlo y crear el html agregando las coordenadas
                     File html = new File("googlemapsTemplate.html");
             		String code = readFileHtml(html);
             		editFile(code,coor);
@@ -75,6 +75,8 @@ public class Main extends Application {
              
             String text;
             while ((text = bufferedReader.readLine()) != null) {
+            	//text es la coordenada leída y se agrega a la siguiente cadena respetando la sintaxis
+            	//del html de la API de googlemaps
                 stringBuffer.append("new google.maps.LatLng(" + text + ")," + "\n");
                 numOfCoor++;
             }
@@ -98,11 +100,12 @@ public class Main extends Application {
 		File openToEdit = new File("googlemaps.html");
 		try {
 			FileWriter editor = new FileWriter(openToEdit,false);
+			//En el template se busca la cadena a modificar para insertar el codigo
+			//con las coordenadas correspondientes
 			String htmlCode = codeToFile.replace("//CoordenadasStart", coorToPush);
 			editor.write(htmlCode);
 			editor.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
